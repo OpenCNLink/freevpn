@@ -1,8 +1,12 @@
 # Security Policy
 
-##Vulnerability resolution process:
+## Reporting a Vulnerability
 
-1. Vulnerability identification and classification: Conduct comprehensive vulnerability scanning and assessment on the system, determine the vulnerabilities at level P0, and classify them according to their severity and impact scope.
+Please report security breaches to oculu@awaish.link.
+
+## Vulnerability resolution process:
+
+1. Vulnerability identification and classification: Conduct comprehensive vulnerability scanning and assessment on the system, determine the level of vulnerabilities, and classify them according to their severity and scope of impact.
 
 2. Emergency response.
 
@@ -13,7 +17,4 @@
 5. Quick patch deployment: The development team develops and deployable patches as soon as possible according to the repair measures to ensure that the system can repair the vulnerabilities in a timely manner.
 
 6. Vulnerability verification and testing: After patch deployment, carry out vulnerability verification and system testing to ensure that the repair measures are effective and will not introduce other problems.
-7. 
-## Reporting a Vulnerability
-
-Please report security breaches to oculu@awaish.link.
+   

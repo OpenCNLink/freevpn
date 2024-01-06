@@ -1,3 +1,4 @@
+import os
 import sys
 import random
 
@@ -37,8 +38,7 @@ def main(args=sys.argv[1:]) -> None:
         proxy = Reader('./list/socketrocket.txt')
         print(proxy)
     elif case in ('-h', '--http'):
-        proxy = Reader('./list/http.txt')
-        print(proxy)
+        os.system('python ./http/init.py')
     else:
         print('Invalid option.')
 

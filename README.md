@@ -1,6 +1,6 @@
 # FreeVPN
 
-To obtain a binary package: https://project.light.gs/OpenCNLink/
+To obtain a binary package: https://project.light.gs/OCL-FreeVpn/
 
 FreeVPN is an open source project that provides users with a list of free agents.
 
@@ -16,7 +16,7 @@ FreeVPN is an open source project that provides users with a list of free agents
 
 Users can follow these steps to use the project:
 
-1. ```git clone https://github.com/OpenCNLink/freevpn/```
+1. ```git clone https://githubfast.com/OpenCNLink/freevpn/```
 2. ```cd freevpn```
 3. ```cd src```
 4. ```python index.py```

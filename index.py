@@ -1,3 +1,4 @@
+import sys
 import random
 
 class Reader:
@@ -14,3 +15,7 @@ class Reader:
 
     def get_random_line(self):
         return random.choice(self.text)
+
+def main(argc:int=len(sys.argv),argv:str=sys.argv) -> init:
+    if argc == 1:
+        print(welc)

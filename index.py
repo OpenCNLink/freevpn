@@ -43,4 +43,4 @@ def main(args=sys.argv[1:]) -> None:
         print('Invalid option.')
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

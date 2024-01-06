@@ -1,6 +1,6 @@
 # FreeVPN
 
-FreeVPN is an open-source project that provides free proxy services to users.
+FreeVPN is an open source project that provides users with a list of free agents.
 
 ## Features
 

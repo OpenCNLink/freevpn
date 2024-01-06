@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import base64
 
 USAGE = """
 Usage: index.py [case]
@@ -15,7 +16,7 @@ class Reader:
     def __init__(self, filename, randomize=False):
         with open(filename, 'r') as f:
             self.text = f.readlines()
-
+        
         if randomize:
             random.shuffle(self.text)
 
@@ -33,7 +34,7 @@ def main(args=sys.argv[1:]) -> None:
     case = args[0]
     if case in ('-v', '--vmess'):
         proxy = Reader('./list/vmess.txt')
-        print(proxy)
+        print(base64.b64encode(str(proxy).encode()).decode())
     elif case in ('-s', '--socketrocket'):
         proxy = Reader('./list/socketrocket.txt')
         print(proxy)

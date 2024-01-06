@@ -18,3 +18,7 @@ Users can follow these steps to use the project:
 2. ```cd freevpn```
 3. ```cd src```
 4. ```python init.py```
+   
+## Join us
+
+Email at oculu@awaish.link.

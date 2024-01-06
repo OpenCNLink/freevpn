@@ -1,6 +1,15 @@
 import sys
 import random
 
+welc = '''
+Usage: index.py [case]
+
+Cases:
+  -v          Use vmess protocol
+  -s          Use socketrocket protocol
+  -h          Use http protocol
+'''
+
 class Reader:
     def __init__(self, filename, randomize=False):
         self.filename = filename

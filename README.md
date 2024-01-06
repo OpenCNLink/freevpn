@@ -1,5 +1,7 @@
 # FreeVPN
 
+To obtain a binary package: https://project.light.gs/OpenCNLink/
+
 FreeVPN is an open source project that provides users with a list of free agents.
 
 ## Features

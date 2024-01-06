@@ -16,5 +16,5 @@ Users can follow these steps to use the project:
 
 1. ```git clone https://github.com/OpenCNLink/freevpn/```
 2. ```cd freevpn```
-3. ```python init.py```
-
+3. ```cd src```
+4. ```python init.py```

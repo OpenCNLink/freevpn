@@ -25,7 +25,8 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest pyinstaller -F --clean -y --dist ./ --workpath /tmp ./src/index.py
-        pyinstaller -F --clean -y --dist ./ --workpath /tmp ./src/index.py
+        cd src
+        pyinstaller -F --clean -y --dist ./ --workpath /tmp index.py
     - name: Test Vmess List
       run: |
         cd src

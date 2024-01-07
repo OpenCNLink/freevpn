@@ -24,31 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest pyinstaller -F --clean -y --dist ./ --workpath /tmp ./src/index.py
-        cd src
-        pyinstaller -F --clean -y --dist ./ --workpath /tmp index.py
     - name: Test Vmess List
       run: |
         cd src
         python index.py -v
-        zip -r $GITHUB_WORKSPACE/win32-freevpn.zip $GITHUB_WORKSPACE/test2.exe
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{ github.workspace }}/win32-freevpn.zip
-        asset_name: win32-freevpn.zip
-        asset_content_type: application/zip

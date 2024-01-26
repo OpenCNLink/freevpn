@@ -1,0 +1,315 @@
+# 翻墙综述
+
+## 前言
+
+有的人在聊天室里问，有没有免费的服务器，有没有免费的GFW穿越之力，但是这些问题的答案是很复杂的。
+
+做个不恰当的比喻，就好像“科学界最新的进展是什么”，它的答案需要前置知识才能理解，内容很复杂，并且经常变化。搞科研的人，就会阅读科学媒体的报道、阅读科研期刊等，来找到这个问题的答案，而不是在聊天室里面询问，因为这个问题是比较难在聊天室里面被回答的（当然关于穿越界壁的问题，并没有科学界最新的进展是什么这么难回答）。
+
+而这篇文章，就是一篇来回答这个问题的文章。像这样的技术问题，在网络上可以找到很多文章，用低审查的搜索引擎（如谷歌），善用搜索能力，找到这些文章来阅读，就是一个很好的获取信息的方法。
+
+本文中所有的列表，都只是列出了一部分笔者知道的有代表性的内容。更多的，请自行搜索。
+
+本文使用了一些类比的说法，纯属个人习惯。
+
+本文写于 2023 年 11 月。作者为一位不愿透露姓名的匿名用户。
+
+## 概论
+
+翻墙，最主要的思想就是通过一台服务器，即代理服务器，来转发你的请求。这台服务器位于界外，因此它向外发送请求不受到界壁的限制，而它又没有被界壁遮蔽，因此它可以收到你的请求，这样一来，你可以通过它的中转，和界壁之外的服务器通信。VPN 也差不多，虽然它们的技术细节有差别，但是大致的思想一样，所以我也将其称为代理。
+
+也有一些其它的方法，不需要使用界外的服务器，但是这些方法通常是从纯技术上对界壁进行欺骗，能做到的事情很有限。对于通过 DNS 污染被遮蔽的网站，这种技术或许可以奏效，但是对于通过判断 IP 地址被遮蔽的网站，这种技术就无效了。因此，使用代理服务器是最主流的方案，也是几乎唯一可以接近完全摆脱界壁遮蔽的方案。
+
+即使是使用代理服务器，也是有可能被界壁识别到并遮蔽的。为了防止被识别到，人们开始了不断的技术迭代。其中主要的进步，就是通过代理协议的创新，使用更先进的加密方法、传输技术等，来防止被界壁检测。
+
+## 传统技术
+
+先来介绍几种比较传统的协议。
+
+- HTTP
+
+  HTTP 是万维网的基础，HTTP 的标准中也包括了代理协议。这几乎是最传统的协议了，也是浏览器、操作系统等直接支持的协议。现在，直接使用 HTTP 代理穿越界壁几乎不可能。
+
+  扩展阅读：[HTTP 代理原理及实现](https://juejin.cn/post/6998351770871152653)、[http 代理协议和 https 代理协议有什么区别？- 涛叔的回答](https://www.zhihu.com/question/486794566/answer/2123259705)
+
+  （然而，很多先进协议的客户端，都是依靠在本地创建 HTTP 代理，然后设置系统代理为客户端的 HTTP 代理来实现让电脑连上代理的。其它的让指定软件接管电脑流量的方法包括创建虚拟网卡等。扩展阅读：[关于『代理』的不完全使用指北](https://blog.revincx.icu/posts/proxy-summary)）
+
+- SOCKS5
+
+  SOCKS5 也是一种比较传统的协议，现在，直接使用 SOCKS5 协议穿越界壁几乎不可能。
+
+  扩展阅读：[网络协议之:一定要大写的 SOCKS](https://www.cnblogs.com/flydean/p/15623712.html)
+
+- OpenVPN
+
+  OpenVPN 是一种 VPN 协议，也是一种比较传统的协议。现在，它已经不是主流。（但是它或许还不是完全不能用，只是需要更多的技术辅助。）
+
+## 开源技术
+
+开源界一直走在技术的前沿。程序员们平时需要穿越界壁去了解技术，因此他们很有需求；他们又很有技术和开源精神。因此，在 GitHub 等开源网站，诞生了许多由程序员自制的开源技术成果。
+
+### 开源代理协议
+
+在 GitHub，诞生了许多开源代理协议。在开发者们的合力下，其中一些协议发展壮大，成为了主流协议。
+
+让我们从最旧的协议开始。SS 诞生于 2012 年。
+
+- ShadowSocks(SS)
+
+  这是一种基于 SOCKS5 协议的加密代理协议，在 2015 年因为官方要求删除代码，现在已经不是主流。但是，它似乎还在被一些开发者继续维护。
+
+  相关链接：[shadowsocks.org](https://shadowsocks.org/)
+
+- ShadowSocksR(SSR)
+
+  这是 SS 的一个分支。在 2017 年，SSR 的开发者因为曾经对开源协议的不尊重、发布假消息、发布闭源的 SS 被动检测程序等原因，遭受人身攻击和人肉搜索，开发者因而删除代码。SSR 现在已经不是主流。
+
+SS 和 SSR 都在历史上有重要的地位。
+
+下面，让我们进入主流协议和新协议的世界。
+
+- [VMess](https://github.com/v2ray/v2ray-core)
+
+  这是当代的主流协议之一，由 Project V 维护。Project V 即 V2Ray 所属的项目。
+
+  相关链接：[Project V (v2ray.com)](https://v2ray.com/)
+
+- [VLESS](https://github.com/xtls/xray-core)
+
+  这是当代的主流协议之一，是一种基于 TLS 的协议，是 VMess 的继任者。它被 Project V 弃用了，但是被 Project X 继续维护。Project X 维护的 XRay 是 V2Ray 的分支，有更多功能。
+
+  相关链接：[Project X (xtls.github.io)](https://xtls.github.io/)、[Issue #2526 (VLESS 的诞生)](https://github.com/v2ray/v2ray-core/issues/2526)
+
+在 VMess、VLESS 的基础上，可以应用很多进一步加强性能的传输协议，如可以通过 WebSocket、QUIC、HTTP/2 等协议连接，或者使用 REALITY 等协议。
+
+还有一些更注重伪装的协议：
+
+- [Trojan](https://github.com/p4gefau1t/trojan-go)
+
+  这也是一种主流协议。Trojan 通过使用标准的 TLS 加密协议，将其流量伪装成最常见的 HTTPS 流量，来防止被识别。现在主要使用的是通过 Go 重写的 Trojan-Go。
+
+  相关链接：[Trojan-Go Docs](https://p4gefau1t.github.io/trojan-go/)
+
+还有一些更新颖的协议。这些协议不断创新，采用先进的技术，摆脱旧协议的缺陷，来防止被界壁系统识别。
+
+- [NaiveProxy](https://github.com/klzgrad/naiveproxy)
+
+  NaiveProxy 通过全面模仿 Chromium 浏览器内核的网络栈来伪装其流量。
+
+- [Juicity](https://github.com/juicity/juicity)
+
+  Juicity 是一个基于 QUIC 的新协议。
+
+- [Hysteria](https://github.com/apernet/hysteria)
+
+  Hysteria 是一个基于 QUIC 的新协议，专为恶劣的网络环境优化。近日 Hysteria 经过重构重写，进入了全新版本 Hysteria 2。
+
+  相关链接：[Hysteria 2 文档](https://v2.hysteria.network/zh/)、[Hysteria 1 文档](https://v1.hysteria.network/zh/)
+
+还有一些不属于社区主流，但是仍然值得一提的协议：
+
+- [Wireguard](https://github.com/WireGuard)
+
+  这个协议不是社区主流，因为它不出自国内的社区，但是却是一个出自外国大佬的十分先进的协议，使用广泛。
+
+此外，还有一些非主流的开源协议，它们大多出自特定的软件，有自己的客户端，而不是由社区制作、适配客户端。如[Brook](https://github.com/txthinking/brook)等。
+
+当然还有一个值得一提的开源协议，那就是 Tor 的协议。（Tor 的源码在这里：<https://gitlab.torproject.org/tpo>）
+
+那么，要如何使用这些（社区主流）协议呢？我们从客户端和服务两个层面讲述。
+
+### 开源协议客户端
+
+需要代理客户端才能连接这些先进的代理协议。一般来说，开源协议会包含客户端，但是那些客户端是命令行程序，并且只支持少数的协议，不便于一般用户使用。因此，一般用户会使用支持更多协议的 GUI 客户端。
+
+（本节中标注了是闭源软件的，就是闭源软件，没标注的，也可能是闭源软件，只是因为笔者没有仔细调查，不确定其为闭源软件。是不是开源首先要看有没有 GitHub repo 或者别的源代码 repo。本节中标注了是付费软件的，如无特殊说明，都是闭源软件。）
+
+- V2Ray
+
+  这些客户端因为主要基于 V2Ray（或者 XRay）而以 V2Ray 命名，主要支持 VMess 和 VLESS 协议。当然大部分客户端也支持其它主流协议，如 Socks、SS、Trojan 等。
+
+  - [V2RayN](https://github.com/2dust/v2rayN)【Windows】
+  - [V2RayNG](https://github.com/2dust/v2rayNG)【Android】
+  - [V2Box](https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690)【macOS、iOS】（闭源软件）
+
+  扩展阅读：[神一样的工具们](https://v2ray.com/awesome/tools.html)
+
+- Clash
+
+  Clash 是一个支持 HTTP、SOCKS5、SS、SSR、Trojan、WireGuard 等多种协议的客户端核心。Clash 不仅同时支持多种协议，还可以通过配置文件高度自定义（如代理分组、路由分流规则等）。基于它，诞生了许多图形客户端。
+
+  值得一提的是，除了原版 Clash 核心，还有支持 TUN 的闭源核心 Clash Permium、开源核心 Clash Meta。
+
+  不幸的是，就在 2023 年 11 月初，因为疑似不可抗力的原因，CFW（即 Clash For Windows）删库，并且许多其它的关于 Clash 的项目进入了归档状态或者删除了所有代码。请自行搜索其可供下载的备份，但是悲观地说，这些删库的软件将来很可能不再更新，更换到仍然活跃更新的软件或许是更好的选择。
+
+  更新：[Clash Meta](https://github.com/MetaCubeX/mihomo/tree/Meta) 已经在另外的 repo 中继续开发。
+
+  - [Continuation of Clash Verge](https://github.com/clash-verge-rev/clash-verge-rev)【跨平台】（Clash Verge 的“复活”分支）
+  - [Clash Nyanpasu](https://github.com/keiko233/clash-nyanpasu)【跨平台】（似乎基于 Clash Verge）
+  - [ClashN](https://github.com/2dust/clashN)【Windows】
+  - [Clash Mini](https://github.com/MetaCubeX/Clash.Mini)【Windows】
+  - [Clash Verge](https://github.com/zzzgydi/clash-verge)【跨平台】（已停止开发）
+  - Clash For Windows【Windows】（闭源软件，且已删库）
+  - Clash For Android【Android】（已删库）
+  - [Stash](https://stash.wiki/)【iOS】（付费软件）
+  - [Stash](https://stash.ws/macos/pricing/)【macOS】（会员制软件）
+  - [Choc](https://apps.apple.com/us/app/choc/id1582542227)【iOS】（付费软件，且差评如潮）
+  - [Pharos Pro](https://apps.apple.com/us/app/pharos-pro/id1456610173)【iOS】（付费软件）
+  - ClashX【macOS】（已删库）
+
+- sing-box
+
+  sing-box 是新一代的统一代理平台，支持 HTTP、SOCKS5、SS、SSR、VMess、VLESS、Trojan、WireGuard、Naive、Hysteria、Hysteria 2、TUIC 等协议。
+
+  - [NekoRay](https://github.com/MatsuriDayo/nekoray)【跨平台】
+  - [NekoBox](https://github.com/MatsuriDayo/NekoBoxForAndroid)【Android】
+  - [sing-box](https://apps.apple.com/us/app/sing-box/id6451272673)【iOS】
+  - [sing-box](https://play.google.com/store/apps/details?id=io.nekohasekai.sfa)【Android】
+
+- iOS
+
+  除了基于 Clash 或 sing-box 的客户端，还有其它一些 iOS 客户端。（因为笔者不用 Android 或 macOS，就不列出 Android 或 macOS 上的这类客户端了。）
+
+  由于苹果平台上，上架 APP 需要向苹果购买开发者账号，APP 要使用 iOS 系统的 VPN 功能还需要额外向苹果书面申请 NetworkExtension 功能，成本很高，所以许多苹果平台上的这类客户端都是付费软件。
+
+  （本节中软件默认都是闭源付费软件。）
+
+  - [ShadowRocket](https://apps.apple.com/us/app/shadowrocket/id932747118)（俗称小火箭）
+  - [Quantumult X](https://apps.apple.com/us/app/quantumult-x/id1443988620)（俗称圈叉、圈 X）
+  - [Potatso](https://apps.apple.com/us/app/potatso/id1239860606)（免费，曾经开源，但协议支持较为落后）
+  - [Potatso 2](https://apps.apple.com/us/app/potatso-2/id1162704202)
+  - [Surge 5](https://apps.apple.com/us/app/surge-5/id1442620678)（基本上需要付费才能使用，且价格极为高昂）
+  - [LanceX](https://apps.apple.com/us/app/lancex/id1536754048)
+
+  然而，我怎么会只写下这些内容呢？事实上，iOS 平台也有一些免费客户端，除去上文提到的 V2Box、sing-box，还有：
+
+  - [Chute](https://apps.apple.com/us/app/chute-network-toolbox/id1515248945)（有 Pro 版，但免费也能用）
+  - [OneClick](https://www.oneclick.earth/)（支持订阅这一（非常基础的）功能，因而是我最推荐的免费客户端。不过考虑到其是面向中国开发的闭源软件，隐私可能存在问题。）
+
+  也可以通过登录别人的已购账号，来免费下载 ShadowRocket 等客户端，网上有这样的服务。不过这主要就是用来下载 ShadowRocket，很少有下载别的客户端的，而且 Surge 这个最为昂贵的客户端，积极采用了一些反盗版的方法，来防止 Surge 被人们用这种方法共享。
+
+  理论上来说，也有通过 TestFlight 或者签名安装 APP 的，但是人们很少通过这两种方法免费安装这些付费客户端。（换句话说，很少有人发布企业签名的这些客户端，很少有人在 TestFlight 发起这些客户端的盗版测试，网上很少有这些客户端的安装包，而能够自己签名的人也没有高调地宣传通过自签安装了盗版的客户端。）
+
+- Android
+
+  安卓上还有一个些尚未介绍的知名客户端。
+
+  - [SagerNet](https://github.com/SagerNet/SagerNet)（由于作者身体问题，无法继续维护，已归档）
+  - [Surfboard](https://getsurfboard.com/)（闭源软件）
+
+- 路由器
+
+  在路由器上安装 OpenWrt 系统，然后运行客户端，也可以实现穿越界壁，而且让整个局域网内通过该路由器上网的设备都无需任何配置地穿越界壁。在路由器上可以使用的客户端包括 sing-box 等，由于笔者不甚了解，故不多展开。
+
+### 开源协议服务
+
+那么，有了客户端，我们和什么服务器连接呢？众所周知，运行一个服务器是有成本的，因此要使用这类穿越界壁的服务，通常我们也需要花钱。
+
+- 机场
+
+  机场是提供这类服务的商家。有少数的机场提供免费服务，你只要找到一个这样的机场，注册，下载对应的客户端，就可以穿越界壁。
+
+  大机场的稳定性、安全性、隐私性更好，当然价格也更高。提供免费服务的机场，隐私性尤其被人们担忧。当然你如果给机场付费，机场也有可能会卷钱跑路，在服务还没有完全兑现时关闭网站和交流群等，让你的钱无法找回。
+
+  使用提供免费服务的机场穿越界壁是所有穿越界壁的方法中最简单的方法之一，而且可以让你对开源穿越界壁技术有初步的认识，但是恕我不能提供我在用的机场的链接。
+
+- 自建
+
+  有的人选择租赁界外 VPS，自己搭建代理。这样的好处在于隐私性强、可以自定义使用的协议等细节，并且几乎不会受到第三方的限制。（如机场可能会遮蔽一些过于极端的网站，或者阻止你用机场的线路进行 P2P 下载等；机场等服务的 IP 地址被太多人使用，容易被一些注重安全性的网站遮蔽。）
+
+  自建也有缺点，在于容错性低，如果你的服务器 IP 地址或者域名被遮蔽，就无法继续使用了。
+
+  在你自建的时候，你可以使用面板，面板是一种集成的服务端，可以运行多种协议的服务端，并且很多面板自带多用户、流量控制、套餐商店、充值系统等功能，机场使用的也是这种面板。
+
+- 云服务
+
+  现在有许多云服务，从基于 Docker 容器的容器云，到提供 Serverless 云函数的服务。许多云服务都有免费额度，这意味着你可以免费运行一些东西，而其中就包括代理服务端。
+
+  这方面，[MisakaNo 的博客](https://blog.misaka.rest/)提供了很多关于可以白嫖的云服务平台的前沿消息。这些人会制作一键脚本，方便你在各平台一键配置好你的服务端容器。此外，这个博客还推荐了机场，以及一些其它可以白嫖的东西。
+
+  这些博主之间，似乎也有争端，MisakaNo 就和另一些博主有着冲突。不过，因为 MisakaNo 的博客可访问性高、信息时效性高、教程简单明了等，我还是非常喜欢看他的博客。
+
+- 免费节点
+
+  有的时候，还会产生一些纯免费的机场和节点。这些节点通常维护情况差，很快就会被遮蔽，稳定性、安全性、隐私性都没有保障，但是它们偶尔也可以用来应急。
+
+  - [BuLink](https://bulink.xyz/)、[freefq](https://github.com/freefq/free)
+  - [OneClash](https://oneclash.cc/)
+  - [ClashFree](https://github.com/aiboboxx/clashfree)
+  - [从 ChromeGo 提取的节点](https://github.com/vveg26/chromego_merge)（这些节点是有“境外势力”维护的，效果还可以，只不过该“境外势力”秉持着他们的观点遮蔽了色情网站）
+  - [NoMoreWalls](https://github.com/peasoft/NoMoreWalls)
+  - [Free Proxies](https://rvorch.treze.cc/)
+  - [V2ray-Nodes](https://github.com/mfuu/v2ray)
+
+## 专有服务
+
+除了开源技术，还有一些“VPN”，它们由公司运营，有自己的客户端。
+
+有很多国外的老牌 VPN 名为“VPN”，实际上，它们中的很多早已不是单纯的 VPN 了，也采用了先进的开源技术，甚至自己做出了改进（当然改进过的协议是他们专有的），从技术上来说，并不落后于开源社区，比如说著名的[NordVPN](https://nordvpn.com/)、[ExpressVPN](https://www.expressvpn.com/)、Proton Mail 推出的[ProtonVPN](https://protonvpn.com/)等。当然，这些服务都是付费的，价格也不低。
+
+还有类似的专有服务，如[迷雾通](https://geph.io/zhs/)，迷雾通不仅做了技术创新，还开源了其客户端和旧版协议。
+
+这些服务的稳定性、安全性、隐私性都有一定保障，只是价格可能较高。
+
+当然，也有一些小公司制作的杂鱼服务，它们可能只有一两个平台的客户端，技术也谈不上先进，可能就是拿几年前的开源技术套壳。它们的名字可能就是“快猫 VPN”、“快鱼 VPN”这类没有特点的名字。它们可能没有售后渠道。这类服务的稳定性、安全性、隐私性都没有保障。我不建议你长期使用这种服务，更不建议你付费。
+
+还有一些提供（几乎无限的）免费额度的国外专有服务，虽然速度和稳定性欠佳，但是也存在了很久。（典型：[betternet](https://www.betternet.co/)）
+
+在专有服务中，我要特别提到[Cloudflare WARP](https://1.1.1.1/)。Cloudflare 作为一家以 DNS、CDN 和 DDoS 防御等服务起家的网站，免费提供了许多基于云的服务。其中就包括 1.1.1.1 DNS，以及 WARP。
+
+WARP 的免费服务，遭到了一定的遮蔽，但是 WARP 的团队版 Zero Trust 同样提供了免费计划，并且 WARP 的付费计划 WARP+还可以通过漏洞白嫖。
+
+通过脚本自动刷邀请注册，可以免费获取 WARP+流量：[使用 Replit 在线平台，获取 WARP+的流量](https://blog.misaka.rest/2023/04/01/repl-warp-traffic/)
+
+还可以通过漏洞刷 WARP+ 24PB 流量密钥：[两种方式，获取 WARP+的 24PB 流量账号](https://blog.misaka.rest/2023/03/19/warp-24pb/)
+
+可以不用信用卡申请 Zero Trust：[无信用卡注册 WARP Teams（Zero Trust）账户](https://blog.misaka.rest/2023/06/22/warp-teams-nocard/)
+
+WARP 实际上使用的就是 WireGuard 协议。因此也可以提取出其节点：[在 NekoRay 使用 WireGuard WARP 节点](https://blog.misaka.rest/2023/03/25/nekoray-warp/)
+
+背靠 Cloudflare，WARP 的稳定性、安全性和隐私性都有保障，因此在我看来，WARP 是一个非常非常好的选择，非常适合新人。WARP 的缺点除了免费版可能连不上，就是（如果不提取出节点）无法分流了，因此你访问国内网站也要走 WARP。
+
+（更新：WARP 还有一个缺点，就是它的 IP 地址是就近分配的，很多时候，虽然你可以访问界外网站，但是网站会看到你的 IP 地址来自中国大陆，这可能会导致无法绕过很多锁区。）
+
+## 境外势力
+
+有一些服务或者软件是由别有用心的境外势力运营的。因为要让更多人接触到外网，它们会免费提供服务。
+
+例如[bannedbook/fanqiang](https://github.com/bannedbook/fanqiang)，就是一个由境外势力维护的 repo，包含了许多教程，并且还提供了一些免费的工具包。上文中有一个免费节点的 repo 就是从这个工具包中提取出来的。
+
+> **ChromeGo - Chrome 一键翻墙包**
+>
+> 一个集成 Goflyway、v2ray、Daze、SSR、Brook、Lightsocks、trojan、蓝灯、psiphon 等 N 多翻墙工具的电脑翻墙包（推荐按前面所列顺序依次尝试），所有工具全部内置免费服务器，长期更新。由于国内网络环境复杂、地区不同，网络运营商不同，封锁情况都不同，所以使用效果会有差别，有的地区几乎所有的软件都能使用，有的只能用几款，因此具体哪款软件适合你的网络环境，需要你自己来尝试。
+
+~~其中有的是境外“邪教”运营的，其运营者可能会出于自己的信仰，遮蔽色情网站，禁止其用户搞黄色。~~
+
+## 杂项
+
+有的工具只适用于一小部分特定网站。这类工具包括[Watt Toolkit](https://steampp.net/)、[开发者边车](https://github.com/docmirror/dev-sidecar)等，可以加速特定网站。而这些工具的原理，包括以下的镜像、DNS 等方面的内容。
+
+镜像站是复制了特定网站内容，或者向特定网站转发请求的网站。维基百科、谷歌等非常著名的（而且容易镜像的）网站都有镜像站。
+
+GitHub 也有镜像站。
+
+PyPI、Anaconda 等开发者常用的软件源，因为服务器太远，访问缓慢，其不仅有镜像站，而且镜像站由淘宝、豆瓣、清华大学等国内大公司或高校维护。
+
+有的网站是因为使用谷歌的 CDN 托管的资源而访问极为缓慢（如 StackOverflow），对此可以通过浏览器脚本、Header Editor 等浏览器扩展等方式让浏览器加载其它 CDN 托管的同一份资源。谷歌的 reCAPTCHA 的脚本`https://www.google.com/recaptcha/api.js`极为缓慢，但其另一个地址`https://recaptcha.net/recaptcha/api.js`可以访问。
+
+有的网站仅仅被 DNS 污染，可以使用国外 DNS，甚至是 DoH 等加密 DNS 技术访问。类似地，你也可以在你的操作系统或浏览器中开启一些[ECH](https://blog.cloudflare.com/encrypted-client-hello/)之类先进的功能，让你的连接更加安全。
+
+使用国内正规的镜像站、使用国内可以访问的官方地址，这些都是完全不涉及代理和违法行为的可以改善网络体验的方法。
+
+扩展阅读：[推荐一个叫“开发者边车”的工具](https://www.jeremysong.cn/cn/dev-sidecar/)（这里的一些方法，我都是看了这篇文章才想起来的。）
+
+还有一些基于 Web 的代理，这些代理直接在网页上就可以使用。如[Nebula](https://github.com/NebulaServices/Nebula-WebProxy)。（这背后有一个叫 TitaniumNetwork 的类似于同好会的组织，那里面可能都是美国的学生？反正美国的学校遮蔽了一些网站，所以他们很热衷于制作网页代理来绕过美国学校的审查。）在很久以前，界壁还很脆弱的时候，网页代理曾经是人们穿越界壁的主流方式。不过很显然这类网页代理的功能是很有局限性的。国内也有一位开发者制作了一个功能强大的网页代理：[jsproxy](https://github.com/EtherDream/jsproxy)。而他的构想，在这里可以阅读：[《基于 JS Hook 技术，打造最先进的在线代理》](https://github.com/EtherDream/jsproxy/blob/master/docs/blogs/js-hook.md)
+
+## 总结
+
+本文中推荐的免费的穿越界壁的方法包括：
+
+- 免费机场+开源客户端
+- 免费节点+开源客户端
+- 云服务自建+开源客户端
+- WARP
+
+穿越界壁的方法多种多样。不论如何，学会搜索信息的方法，才能够在互联网时代获得强大的工具，免于互联网大公司等组织设下的种种困难。

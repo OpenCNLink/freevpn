@@ -2,6 +2,8 @@
 
 To obtain a binary package: https://project.light.gs/OCL-FreeVpn/
 
+[《翻墙综述》（匿名用户授权致 OpenCNLink）](翻墙综述.md)
+
 FreeVPN is an open source project that provides users with a list of free agents.
 
 ## Features
